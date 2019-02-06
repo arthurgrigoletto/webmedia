@@ -1,8 +1,10 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 const Validator = require('validator');
 const isEmpty = require('./isEmpty');
 
 module.exports = function validateRegisterInput(data) {
-  let errors = {};
+  const errors = {};
 
   data.name = !isEmpty(data.name) ? data.name : '';
   data.email = !isEmpty(data.email) ? data.email : '';
@@ -42,6 +44,6 @@ module.exports = function validateRegisterInput(data) {
 
   return {
     errors,
-    isValid: isEmpty(errors)
+    isValid: isEmpty(errors),
   };
 };

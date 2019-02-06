@@ -1,8 +1,10 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 const Validator = require('validator');
 const isEmpty = require('./isEmpty');
 
 module.exports = function validateArticleInput(data) {
-  let errors = {};
+  const errors = {};
 
   data.title = !isEmpty(data.title) ? data.title : '';
   data.subtitle = !isEmpty(data.subtitle) ? data.subtitle : '';
@@ -27,6 +29,6 @@ module.exports = function validateArticleInput(data) {
 
   return {
     errors,
-    isValid: isEmpty(errors)
-  }
-}
+    isValid: isEmpty(errors),
+  };
+};

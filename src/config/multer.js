@@ -1,3 +1,5 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 require('dotenv').config();
 const multer = require('multer');
 const path = require('path');

@@ -9,5 +9,5 @@ module.exports = {
     if (!fs.existsSync('./tmp/uploads')) {
       fs.mkdirSync('./tmp/uploads');
     }
-  }
+  },
 };

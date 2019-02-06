@@ -25,7 +25,7 @@ routes.post('/auth/register', multer(multerConfig).single('file'), Authentificat
 routes.get(
   '/auth/current',
   passport.authenticate('jwt', { session: false }),
-  AuthentificationController.current
+  AuthentificationController.current,
 );
 
 // TODO - User Routes
@@ -43,7 +43,7 @@ routes.get('/article', ArticleController.index);
 routes.post(
   '/article',
   passport.authenticate('jwt', { session: false }),
-  ArticleController.store
+  ArticleController.store,
 );
 
 // TODO - Likes Routes

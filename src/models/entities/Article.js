@@ -6,66 +6,66 @@ const { Schema } = mongoose;
 const ArticleSchema = new Schema({
   title: {
     type: String,
-    required: true
+    required: true,
   },
   subtitle: {
     type: String,
-    required: true
+    required: true,
   },
   createdAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   content: {
     type: String,
-    required: true
+    required: true,
   },
   authors: [
     {
       name: {
-        type: String
-      }
-    }
+        type: String,
+      },
+    },
   ],
   permalink: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   comments: [
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'Users'
+        ref: 'Users',
       },
       text: {
         type: String,
-        required: true
+        required: true,
       },
       name: {
-        type: String
+        type: String,
       },
       avatar: {
-        type: String
+        type: String,
       },
       commentedAt: {
         type: Date,
-        default: Date.now
-      }
-    }
+        default: Date.now,
+      },
+    },
   ],
   likes: [
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: 'Users'
-      }
-    }
-  ]
+        ref: 'Users',
+      },
+    },
+  ],
 });
 
 module.exports = mongoose.model('Article', ArticleSchema);

@@ -1,3 +1,5 @@
+/* eslint no-underscore-dangle: ["error", { "allow": ["_id"] }] */
+
 require('dotenv').config();
 const { Strategy, ExtractJwt } = require('passport-jwt');
 const User = require('../models/entities/User');
