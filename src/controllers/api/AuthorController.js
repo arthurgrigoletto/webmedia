@@ -12,7 +12,7 @@ module.exports = {
     const { name, description } = req.body;
     const { location: url = '' } = req.file;
 
-    Author.findOne({ name }).then(author => {
+    Author.findOne({ name }).then((author) => {
       if (author) {
         errors.name = 'Author already exists';
         return res.status(400).json(errors);
@@ -21,10 +21,10 @@ module.exports = {
       const newAuthor = new Author({
         name,
         description,
-        profilePicture: url
+        profilePicture: url,
       });
 
-      newAuthor
+      return newAuthor
         .save()
         .then(autor => res.status(200).json(autor))
         .catch(err => res.status(500).json(err));
@@ -37,5 +37,5 @@ module.exports = {
     await author.remove();
 
     return res.send();
-  }
+  },
 };

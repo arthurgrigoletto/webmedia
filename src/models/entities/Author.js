@@ -5,10 +5,10 @@ const { Schema } = mongoose;
 const AuthorSchema = new Schema({
   name: {
     type: String,
-    required: true
+    required: true,
   },
   description: String,
-  profilePicture: String
+  profilePicture: String,
 });
 
 module.exports = mongoose.model('Author', AuthorSchema);
