@@ -6,13 +6,9 @@ const validateArticleInput = require('../../validation/article');
 const index = async (req, res) => {
   const { permalink = '' } = req.query;
 
-  let articles;
-
-  if (permalink !== '') {
-    articles = await Article.findOne({ permalink });
-  } else {
-    articles = await Article.find({}).sort('-createdAt');
-  }
+  const articles = permalink
+    ? await Article.findOne({ permalink })
+    : await Article.find({}).sort('-createdAt');
 
   return res.json(articles);
 };

@@ -65,12 +65,12 @@ routes.post(
 // @route   PUT api/author
 // @desc    Update an Author
 // @access  Private
-// routes.put(
-//   '/author/:id',
-//   passport.authenticate('jwt', { session: false }),
-//   multer(multerConfig).single('file'),
-//   AuthorController.update
-// );
+routes.put(
+  '/author/:id',
+  passport.authenticate('jwt', { session: false }),
+  multer(multerConfig).single('file'),
+  AuthorController.update,
+);
 
 // @route   DELETE api/author/:id
 // @desc    Delete an Author

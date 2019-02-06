@@ -13,12 +13,12 @@ module.exports = function validateLoginInput(data) {
     errors.email = 'Email is invalid';
   }
 
-  if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password Field is required';
-  }
-
   if (!Validator.isLength(data.password, { min: 6, max: 30 })) {
     errors.password = 'Password must be at least 6 characters';
+  }
+
+  if (Validator.isEmpty(data.password)) {
+    errors.password = 'Password Field is required';
   }
 
   if (Validator.isEmpty(data.email)) {
