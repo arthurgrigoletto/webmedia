@@ -4,10 +4,17 @@ const multer = require('multer');
 const multerConfig = require('./config/multer');
 const AuthentificationController = require('./controllers/api/AuthController');
 const ArticleController = require('./controllers/api/ArticleController');
+const AuthorController = require('./controllers/api/AuthorController');
 
 const routes = express.Router();
 
-// Authentification Routes
+/*
+===============================================================================================================================================================
+===============================================================================================================================================================
+============================================================= AUTHENTIFICATION ROUTES =========================================================================
+===============================================================================================================================================================
+===============================================================================================================================================================
+*/
 
 // @route   POST api/auth/login
 // @desc    Login User / Returning JWT Token
@@ -17,7 +24,11 @@ routes.post('/auth/login', AuthentificationController.login);
 // @route   POST api/auth/register
 // @desc    Register User
 // @access  Public
-routes.post('/auth/register', multer(multerConfig).single('file'), AuthentificationController.register);
+routes.post(
+  '/auth/register',
+  multer(multerConfig).single('file'),
+  AuthentificationController.register
+);
 
 // @route   GET api/auth/current
 // @desc    Return Current User
@@ -25,12 +36,58 @@ routes.post('/auth/register', multer(multerConfig).single('file'), Authentificat
 routes.get(
   '/auth/current',
   passport.authenticate('jwt', { session: false }),
-  AuthentificationController.current,
+  AuthentificationController.current
 );
 
-// TODO - User Routes
+/*
+===============================================================================================================================================================
+===============================================================================================================================================================
+=================================================================== AUTHOR ROUTES =============================================================================
+===============================================================================================================================================================
+===============================================================================================================================================================
+*/
 
-// TODO - Article Routes
+// @route   GET api/author
+// @desc    Get all Authors
+// @access  Public
+routes.get('/author', AuthorController.index);
+
+// @route   POST api/author
+// @desc    Create an new Author
+// @access  Private
+routes.post(
+  '/author',
+  passport.authenticate('jwt', { session: false }),
+  multer(multerConfig).single('file'),
+  AuthorController.create
+);
+
+// @route   PUT api/author
+// @desc    Update an Author
+// @access  Private
+// routes.put(
+//   '/author/:id',
+//   passport.authenticate('jwt', { session: false }),
+//   multer(multerConfig).single('file'),
+//   AuthorController.update
+// );
+
+// @route   DELETE api/author/:id
+// @desc    Delete an Author
+// @access  Private
+routes.delete(
+  '/author/:id',
+  passport.authenticate('jwt', { session: false }),
+  AuthorController.delete
+);
+
+/*
+===============================================================================================================================================================
+===============================================================================================================================================================
+================================================================== ARTICLE ROUTES =============================================================================
+===============================================================================================================================================================
+===============================================================================================================================================================
+*/
 
 // @route   GET api/article
 // @desc    GET Articles
@@ -43,7 +100,7 @@ routes.get('/article', ArticleController.index);
 routes.post(
   '/article',
   passport.authenticate('jwt', { session: false }),
-  ArticleController.store,
+  ArticleController.store
 );
 
 // TODO - Likes Routes

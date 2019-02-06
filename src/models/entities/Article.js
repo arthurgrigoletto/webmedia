@@ -26,8 +26,9 @@ const ArticleSchema = new Schema({
   },
   authors: [
     {
-      name: {
-        type: String,
+      author: {
+        type: Schema.Types.ObjectId,
+        ref: 'Author',
       },
     },
   ],

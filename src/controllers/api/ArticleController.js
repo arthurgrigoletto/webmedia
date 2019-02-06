@@ -4,7 +4,15 @@ const Article = require('../../models/entities/Article');
 const validateArticleInput = require('../../validation/article');
 
 const index = async (req, res) => {
-  const articles = await Article.find({}).sort('-createdAt');
+  const { permalink = '' } = req.query;
+
+  let articles;
+
+  if (permalink !== '') {
+    articles = await Article.findOne({ permalink });
+  } else {
+    articles = await Article.find({}).sort('-createdAt');
+  }
 
   return res.json(articles);
 };
@@ -20,12 +28,10 @@ const store = async (req, res) => {
 
   const article = await Article.create(req.body);
 
-  req.io.emit('article', article);
-
   return res.json(article);
 };
 
 module.exports = {
   index,
-  store,
+  store
 };
