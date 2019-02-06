@@ -22,7 +22,7 @@ const storageTypes = {
   }),
   s3: multerS3({
     s3: new aws.S3(),
-    bucket: 'uploadexample-agn',
+    bucket: 'webmedia-agnl',
     contentType: multerS3.AUTO_CONTENT_TYPE,
     acl: 'public-read',
     key: (req, file, callback) => {

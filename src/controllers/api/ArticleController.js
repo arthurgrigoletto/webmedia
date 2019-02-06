@@ -1,4 +1,4 @@
-const Article = require('../../models/Article');
+const Article = require('../../models/entities/Article');
 
 // Load Input Validation
 const validateArticleInput = require('../../validation/article');

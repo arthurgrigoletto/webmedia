@@ -1,3 +1,4 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
@@ -6,24 +7,32 @@ const { Schema } = mongoose;
 const UserSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   email: {
     type: String,
-    required: true,
+    required: true
   },
   password: {
     type: String,
-    required: true,
+    required: true
   },
+  avatar: String,
+  key: String,
   active: {
     type: Boolean,
-    default: true,
+    default: true
   },
   date: {
     type: Date,
-    default: Date.now,
-  },
+    default: Date.now
+  }
+});
+
+UserSchema.pre('save', function() {
+  if (!this.avatar) {
+    this.avatar = `${process.env.APP_URL}/files/${this.key}`;
+  }
 });
 
 module.exports = mongoose.model('Users', UserSchema);

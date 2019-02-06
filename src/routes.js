@@ -1,5 +1,7 @@
 const express = require('express');
 const passport = require('passport');
+const multer = require('multer');
+const multerConfig = require('./config/multer');
 const AuthentificationController = require('./controllers/api/AuthController');
 const ArticleController = require('./controllers/api/ArticleController');
 
@@ -15,7 +17,7 @@ routes.post('/auth/login', AuthentificationController.login);
 // @route   POST api/auth/register
 // @desc    Register User
 // @access  Public
-routes.post('/auth/register', AuthentificationController.register);
+routes.post('/auth/register', multer(multerConfig).single('file'), AuthentificationController.register);
 
 // @route   GET api/auth/current
 // @desc    Return Current User
