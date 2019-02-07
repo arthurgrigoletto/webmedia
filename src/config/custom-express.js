@@ -30,12 +30,7 @@ module.exports = () => {
   passportConfig(passport);
 
   // Connect to MongDb
-  mongoose
-    .connect(process.env.MONGO_URI, { useNewUrlParser: true })
-    .then(() => {
-      console.log('MongoDb Connected');
-    })
-    .catch(err => console.log(err));
+  mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
 
   // Use Routes
   app.use('/api', routes);

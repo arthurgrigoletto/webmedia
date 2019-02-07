@@ -5,6 +5,7 @@ const multerConfig = require('./config/multer');
 const AuthentificationController = require('./controllers/api/AuthController');
 const ArticleController = require('./controllers/api/ArticleController');
 const AuthorController = require('./controllers/api/AuthorController');
+const CommentController = require('./controllers/api/CommentController');
 
 const routes = express.Router();
 
@@ -105,6 +106,44 @@ routes.post(
 
 // TODO - Likes Routes
 
-// TODO - Comments Routes
+/*
+================================================================================
+================================================================================
+============================== COMMENTS ROUTES =================================
+================================================================================
+================================================================================
+*/
+
+// @route   GET api/:id/comments
+// @desc    GET Article's Comments
+// @access  Public
+routes.get('/:id/comments', CommentController.getComments);
+
+// @route   POST api/:id/comments
+// @desc    Create Article's Comment
+// @access  Private
+routes.post(
+  '/:id/comments',
+  passport.authenticate('jwt', { session: false }),
+  CommentController.addComment,
+);
+
+// @route   POST api/:id/comments
+// @desc    Update Article's Comment
+// @access  Private
+routes.put(
+  '/:id/comments/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  CommentController.updateComment,
+);
+
+// @route   Delete api/:id/comments
+// @desc    Delete Article's Comment
+// @access  Private
+routes.delete(
+  '/:id/comments/:commentId',
+  passport.authenticate('jwt', { session: false }),
+  CommentController.deleteComment,
+);
 
 module.exports = routes;
