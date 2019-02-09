@@ -1,7 +1,36 @@
+/* eslint no-param-reassign: ["error", { "props": false }] */
+
 const Article = require('../../models/entities/Article');
 
 // Load Input Validation
 const validateArticleInput = require('../../validation/article');
+
+const gerenateAuthorArray = (ids) => {
+  const authorsIds = ids.split(',');
+  const autores = authorsIds.reduce((authors, id) => {
+    const author = {
+      author: id,
+    };
+
+    authors.push(author);
+    return authors;
+  }, []);
+
+  return autores;
+};
+
+function hasAuthor(authors, author) {
+  return authors.filter(autor => autor.author.toString() === author).length === 0;
+}
+
+function newArrayInexistentAuthor(autores, newAuthors) {
+  return newAuthors.split(',').reduce((authors, author) => {
+    if (!hasAuthor(autores, author)) {
+      authors.push({ author });
+    }
+    return authors;
+  }, []);
+}
 
 const index = async (req, res) => {
   const { permalink = '' } = req.query;
@@ -13,8 +42,32 @@ const index = async (req, res) => {
   return res.json(articles);
 };
 
-const store = async (req, res) => {
+const getById = async (req, res) => {
+  let articleFields;
+
+  if (!req.query) {
+    articleFields = await Article.findById(req.params.id);
+  } else {
+    const params = Object.keys(req.query).join(' ');
+    articleFields = await Article.findById(req.params.id).select(params);
+  }
+
+  return res.json(articleFields);
+};
+
+const store = (req, res) => {
   const { errors, isValid } = validateArticleInput(req.body);
+  const {
+    title,
+    subtitle,
+    content,
+    permalink,
+    authorsIds,
+  } = req.body;
+  const {
+    key,
+    location: banner = '',
+  } = req.file;
 
   // Check Validation
   if (!isValid) {
@@ -22,12 +75,82 @@ const store = async (req, res) => {
     res.status(400).json(errors);
   }
 
-  const article = await Article.create(req.body);
+  const authors = gerenateAuthorArray(authorsIds);
 
-  return res.json(article);
+  const newArticle = new Article({
+    title,
+    subtitle,
+    content,
+    permalink,
+    authors,
+    key,
+    banner,
+  });
+
+  return newArticle
+    .save()
+    .then(artigo => res.json(artigo))
+    .catch(err => res.status(500).json(err));
+};
+
+const update = (req, res) => {
+  const {
+    title,
+    subtitle,
+    content,
+    permalink,
+    authorsIds,
+  } = req.body;
+  const {
+    id,
+  } = req.params;
+
+  Article.findById(id).then((article) => {
+    // New Banner
+    if (req.file) {
+      const { key, location: url = '' } = req.file;
+
+      article.banner = url;
+      article.key = key;
+    }
+
+    // New Author
+    if (authorsIds) {
+      const newAuthors = newArrayInexistentAuthor(article.authors, authorsIds);
+      article.authors = [...article.authors, ...newAuthors];
+    }
+
+    // New Title
+    article.title = title || article.title;
+
+    // New Subtitle
+    article.subtitle = subtitle || article.subtitle;
+
+    // Updated_at
+    article.updatedAt = new Date();
+
+    // New Content
+    article.content = content || article.content;
+
+    // New Permalink
+    article.permalink = permalink || article.permalink;
+
+    article.save().then(artigo => res.json(artigo));
+  });
+};
+
+const remove = async (req, res) => {
+  const article = await Article.findById(req.params.id);
+
+  await article.remove();
+
+  return res.json({ msg: 'Delete Success' });
 };
 
 module.exports = {
   index,
+  getById,
   store,
+  update,
+  remove,
 };

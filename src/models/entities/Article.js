@@ -32,6 +32,8 @@ const ArticleSchema = new Schema({
       },
     },
   ],
+  banner: String,
+  key: String,
   permalink: {
     type: String,
     required: true,
@@ -67,6 +69,12 @@ const ArticleSchema = new Schema({
       },
     },
   ],
+});
+
+ArticleSchema.pre('save', function () {
+  if (!this.banner) {
+    this.banner = `${process.env.APP_URL}/files/${this.key}`;
+  }
 });
 
 module.exports = mongoose.model('Article', ArticleSchema);

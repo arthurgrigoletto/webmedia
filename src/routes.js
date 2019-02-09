@@ -51,23 +51,28 @@ routes.get(
 // @route   GET api/author
 // @desc    Get all Authors
 // @access  Public
-routes.get('/author', AuthorController.index);
+routes.get('/authors', AuthorController.index);
+
+// @route   GET api/author/:id
+// @desc    Get an Author or Fields Author by Id
+// @access  Public
+routes.get('/authors/:id', AuthorController.getById);
 
 // @route   POST api/author
 // @desc    Create an new Author
 // @access  Private
 routes.post(
-  '/author',
+  '/authors',
   passport.authenticate('jwt', { session: false }),
   multer(multerConfig).single('file'),
-  AuthorController.create,
+  AuthorController.store,
 );
 
 // @route   PUT api/author
 // @desc    Update an Author
 // @access  Private
 routes.put(
-  '/author/:id',
+  '/authors/:id',
   passport.authenticate('jwt', { session: false }),
   multer(multerConfig).single('file'),
   AuthorController.update,
@@ -77,9 +82,9 @@ routes.put(
 // @desc    Delete an Author
 // @access  Private
 routes.delete(
-  '/author/:id',
+  '/authors/:id',
   passport.authenticate('jwt', { session: false }),
-  AuthorController.delete,
+  AuthorController.remove,
 );
 
 /*
@@ -90,21 +95,53 @@ routes.delete(
 ================================================================================
 */
 
-// @route   GET api/article
-// @desc    GET Articles
+// @route   GET api/articles
+// @desc    GET Articles or Find Article by Permalink
 // @access  Public
-routes.get('/article', ArticleController.index);
+routes.get('/articles', ArticleController.index);
 
-// @route   POST api/article
+// @route   GET api/articles/:id
+// @desc    GET Article or Fields Article by Id
+// @access  Public
+routes.get('/articles/:id', ArticleController.getById);
+
+// @route   POST api/articles
 // @desc    Create an Articles
 // @access  Private
 routes.post(
-  '/article',
+  '/articles',
   passport.authenticate('jwt', { session: false }),
+  multer(multerConfig).single('file'),
   ArticleController.store,
 );
 
-// TODO - Likes Routes
+// @route   PUT api/articles
+// @desc    Update an Articles
+// @access  Private
+routes.put(
+  '/articles/:id',
+  passport.authenticate('jwt', { session: false }),
+  multer(multerConfig).single('file'),
+  ArticleController.update,
+);
+
+// @route   DELETE api/articles/:id
+// @desc    Delete an Author
+// @access  Private
+routes.delete(
+  '/articles/:id',
+  passport.authenticate('jwt', { session: false }),
+  ArticleController.remove,
+);
+
+/*
+================================================================================
+================================================================================
+================================ LIKES ROUTES ==================================
+================================================================================
+================================================================================
+*/
+
 
 /*
 ================================================================================
@@ -128,7 +165,7 @@ routes.post(
   CommentController.addComment,
 );
 
-// @route   POST api/:id/comments
+// @route   PUT api/:id/comments
 // @desc    Update Article's Comment
 // @access  Private
 routes.put(

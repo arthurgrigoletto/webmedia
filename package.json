@@ -6,7 +6,7 @@
     "clear": "rimraf lib",
     "start": "npm src/index.js",
     "server": "nodemon src/index.js",
-    "lint": "./node_modules/.bin/eslint src/**/*.js",
+    "lint": "./node_modules/.bin/eslint src/**",
     "prepush": "npm run lint",
     "test": "./node_modules/.bin/mocha tests/**/*.spec.js",
     "test:tdd": "./node_modules/.bin/mocha tests/**/*.spec.js --watch",

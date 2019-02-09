@@ -10,6 +10,7 @@ module.exports = function validateArticleInput(data) {
   data.subtitle = !isEmpty(data.subtitle) ? data.subtitle : '';
   data.content = !isEmpty(data.content) ? data.content : '';
   data.permalink = !isEmpty(data.permalink) ? data.permalink : '';
+  data.authorsIds = !isEmpty(data.authorsIds) ? data.authorsIds : '';
 
   if (Validator.isEmpty(data.subtitle)) {
     errors.subTitle = 'Sub title Field is required';
@@ -25,6 +26,10 @@ module.exports = function validateArticleInput(data) {
 
   if (Validator.isEmpty(data.permalink)) {
     errors.permalink = 'Permalink Field is required';
+  }
+
+  if (Validator.isEmpty(data.authorsIds)) {
+    errors.authorsIds = 'Article must have at least one author';
   }
 
   return {
