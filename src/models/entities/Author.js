@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const { Schema } = mongoose;
 
@@ -11,6 +12,8 @@ const AuthorSchema = new Schema({
   profilePicture: String,
   key: String,
 });
+
+AuthorSchema.plugin(mongoosePaginate);
 
 AuthorSchema.pre('save', function () {
   if (!this.profilePicture) {

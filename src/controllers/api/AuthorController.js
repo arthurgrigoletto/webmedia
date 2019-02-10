@@ -3,11 +3,17 @@
 const Author = require('../../models/entities/Author');
 
 const index = async (req, res) => {
-  const { name = '' } = req.query;
+  const { name = '', page = 1, limit = 5 } = req.query;
+
+  const options = {
+    page: parseInt(page, 10),
+    limit: parseInt(limit, 10),
+    sort: { name: 1 }
+  }
 
   const authors = name
     ? await Author.findOne({ name })
-    : await Author.find({}).sort('name');
+    : await Author.paginate({}, options);
 
   return res.json(authors);
 };

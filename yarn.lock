@@ -2463,6 +2463,11 @@ mongoose-legacy-pluralize@1.0.2:
   resolved "https://registry.yarnpkg.com/mongoose-legacy-pluralize/-/mongoose-legacy-pluralize-1.0.2.tgz#3ba9f91fa507b5186d399fb40854bff18fb563e4"
   integrity sha512-Yo/7qQU4/EyIS8YDFSeenIvXxZN+ld7YdV9LqFVQJzTLye8unujAWPZ4NWKfFA+RNjh+wvTWKY9Z3E5XM6ZZiQ==
 
+mongoose-paginate-v2@^1.0.20:
+  version "1.0.20"
+  resolved "https://registry.yarnpkg.com/mongoose-paginate-v2/-/mongoose-paginate-v2-1.0.20.tgz#e8720f688bb68d106ab25da3d241fc95073c67a6"
+  integrity sha512-Qyus3FxLNGG0AUhYaZbIArMKqoBfubI4eYdZl+szYdfSP4tKi92QeLFEayanlvHdW7q8FAcU9CsRHlPKwckREw==
+
 mongoose@5.2.8:
   version "5.2.8"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-5.2.8.tgz#dd74ce0c4df803cb816c37ee1228d6663e2c2254"

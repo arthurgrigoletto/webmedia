@@ -2,10 +2,13 @@ const express = require('express');
 const passport = require('passport');
 const multer = require('multer');
 const multerConfig = require('./config/multer');
+
+// Import Controllers
 const AuthentificationController = require('./controllers/api/AuthController');
 const ArticleController = require('./controllers/api/ArticleController');
 const AuthorController = require('./controllers/api/AuthorController');
 const CommentController = require('./controllers/api/CommentController');
+const LikeController = require('./controllers/api/LikeController');
 
 const routes = express.Router();
 
@@ -126,7 +129,7 @@ routes.put(
 );
 
 // @route   DELETE api/articles/:id
-// @desc    Delete an Author
+// @desc    Delete an Article
 // @access  Private
 routes.delete(
   '/articles/:id',
@@ -142,6 +145,28 @@ routes.delete(
 ================================================================================
 */
 
+// @route   GET api/:id/like
+// @desc    Get Likes from Article
+// @access  Public
+routes.get('/:id/like', LikeController.getLikes);
+
+// @route   POST api/:id/like
+// @desc    Add Like to Article
+// @access  Private
+routes.post(
+  '/:id/like',
+  passport.authenticate('jwt', { session: false }),
+  LikeController.addLike,
+);
+
+// @route   POST api/:id/unlike
+// @desc    Remove Like from Article
+// @access  Private
+routes.post(
+  '/:id/unlike',
+  passport.authenticate('jwt', { session: false }),
+  LikeController.unLike,
+);
 
 /*
 ================================================================================

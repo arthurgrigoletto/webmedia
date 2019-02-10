@@ -33,12 +33,18 @@ function newArrayInexistentAuthor(autores, newAuthors) {
 }
 
 const index = async (req, res) => {
-  const { permalink = '' } = req.query;
+  const { permalink = '', page = 1, limit = 5 } = req.query;
+
+  const options = {
+    page: parseInt(page, 10),
+    limit: parseInt(limit, 10),
+    sort: '-createdAt'
+  }
 
   const articles = permalink
     ? await Article.findOne({ permalink })
-    : await Article.find({}).sort('-createdAt');
-
+    : await Article.paginate({}, options);
+    // await Article.find({}).sort('-createdAt');
   return res.json(articles);
 };
 

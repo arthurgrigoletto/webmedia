@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 
 const { Schema } = mongoose;
 
@@ -70,6 +71,8 @@ const ArticleSchema = new Schema({
     },
   ],
 });
+
+ArticleSchema.plugin(mongoosePaginate);
 
 ArticleSchema.pre('save', function () {
   if (!this.banner) {
