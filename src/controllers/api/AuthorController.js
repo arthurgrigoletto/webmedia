@@ -8,8 +8,8 @@ const index = async (req, res) => {
   const options = {
     page: parseInt(page, 10),
     limit: parseInt(limit, 10),
-    sort: { name: 1 }
-  }
+    sort: { name: 1 },
+  };
 
   const authors = name
     ? await Author.findOne({ name })
