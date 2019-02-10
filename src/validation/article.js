@@ -13,15 +13,19 @@ module.exports = function validateArticleInput(data) {
   data.authorsIds = !isEmpty(data.authorsIds) ? data.authorsIds : '';
 
   if (Validator.isEmpty(data.subtitle)) {
-    errors.subTitle = 'Sub title Field is required';
+    errors.subTitle = 'Subtitle Field is required';
   }
 
   if (Validator.isEmpty(data.title)) {
-    errors.title = 'title Field is required';
+    errors.title = 'Title Field is required';
   }
 
   if (Validator.isEmpty(data.content)) {
     errors.content = 'Content Field is required';
+  }
+
+  if (!Validator.isURL(data.permalink)) {
+    errors.permalink = 'Permalink Field is not an valid URL';
   }
 
   if (Validator.isEmpty(data.permalink)) {

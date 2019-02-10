@@ -78,7 +78,7 @@ const store = (req, res) => {
   // Check Validation
   if (!isValid) {
     // If any errors, send 400 with erros object
-    res.status(400).json(errors);
+    return res.status(400).json(errors);
   }
 
   const authors = gerenateAuthorArray(authorsIds);
@@ -111,7 +111,7 @@ const update = (req, res) => {
     id,
   } = req.params;
 
-  Article.findById(id).then((article) => {
+  return Article.findById(id).then((article) => {
     // New Banner
     if (req.file) {
       const { key, location: url = '' } = req.file;
@@ -141,7 +141,7 @@ const update = (req, res) => {
     // New Permalink
     article.permalink = permalink || article.permalink;
 
-    article.save().then(artigo => res.json(artigo));
+    return article.save().then(artigo => res.json(artigo));
   });
 };
 

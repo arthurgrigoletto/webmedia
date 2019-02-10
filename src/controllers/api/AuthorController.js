@@ -2,6 +2,9 @@
 
 const Author = require('../../models/entities/Author');
 
+// Load Input Validation
+const validateAuthorInput = require('../../validation/author');
+
 const index = async (req, res) => {
   const { name = '', page = 1, limit = 5 } = req.query;
 
@@ -32,11 +35,17 @@ const getById = async (req, res) => {
 };
 
 const store = (req, res) => {
-  const errors = {};
+  const { errors, isValid } = validateAuthorInput(req.body);
   const { name, description } = req.body;
   const { key, location: profilePicture = '' } = req.file;
 
-  Author.findOne({ name }).then((author) => {
+  // Check Validation
+  if (!isValid) {
+    // If any errors, send 400 with erros object
+    return res.status(400).json(errors);
+  }
+
+  return Author.findOne({ name }).then((author) => {
     if (author) {
       errors.name = 'Author already exists';
       return res.status(400).json(errors);
@@ -85,7 +94,7 @@ const remove = async (req, res) => {
 
   await author.remove();
 
-  return res.send();
+  return res.json({ msg: 'Delete Success' });
 };
 module.exports = {
   index,
