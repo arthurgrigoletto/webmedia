@@ -4,7 +4,7 @@ Simples API REST para um blog. Este blog possui artigos, e cada artigo poderá t
 
 ## Getting Started
 
-Essas intruções servirão para copiar o projeto e rodá-lo localmente para desenvolvimento. Caso queira ter uma experiência online da API sem precisar copiar o projeto a url base é <https://todo-eel.mybluemix.net/api>. Caso queira usá-la, leia a parte de [Routes](#routes)
+Essas intruções servirão para copiar o projeto e rodá-lo localmente para desenvolvimento. Caso queira ter uma experiência online da API sem precisar copiar o projeto a url base é <https://webediatest-webservice.mybluemix.net/>. Caso queira usá-la, leia a parte de [Routes](#routes)
 
 ### Prerequisites
 
