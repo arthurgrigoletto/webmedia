@@ -1,0 +1,9 @@
+APP_URL=http://localhost:3000
+STORAGE_TYPE=local
+
+MONGO_URI=mongodb://<dbuser>:<dbpassword>@ds123635.mlab.com:23635/<dbname>
+SECRET_KEY=test-webmedia
+
+AWS_ACCESS_KEY=
+AWS_SECRET_ACCESS_KEY=
+AWS_DEFAULT_REGION=

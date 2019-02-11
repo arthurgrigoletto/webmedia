@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "clear": "rimraf lib",
-    "start": "npm src/index.js",
+    "start": "node src/index.js",
     "server": "nodemon src/index.js",
     "lint": "./node_modules/.bin/eslint \"src/**/*.js\"",
     "prepush": "npm run lint && npm run test:coverage",
@@ -16,8 +16,13 @@
     "functions": 70,
     "lines": 70,
     "check-coverage": true,
-    "reporter": ["text", "html"],
-    "exclude": ["tests/**"]
+    "reporter": [
+      "text",
+      "html"
+    ],
+    "exclude": [
+      "tests/**"
+    ]
   },
   "license": "MIT",
   "dependencies": {
@@ -47,5 +52,8 @@
     "nodemon": "^1.18.9",
     "nyc": "^13.2.0",
     "rimraf": "^2.6.3"
+  },
+  "engines": {
+    "node": "^10.5.0"
   }
 }

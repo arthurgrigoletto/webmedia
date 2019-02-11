@@ -1,0 +1,6 @@
+---
+applications:
+- name: webediatest-webservice
+  memory: 128M
+  instances: 1
+  host: webediatest-webservice
